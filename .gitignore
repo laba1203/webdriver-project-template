@@ -1,0 +1,26 @@
+# Ignore maven files:
+/target/*
+#
+/allure-results/*
+/.idea/*
+*.iml
+/src/main/java/util/ExecutionVariables.java
+
+src/test/output/temp/*
+src/test/output/*
+
+#ignore files in screenshots tests
+actual/
+diff/
+gifs/
+
+tempTests/*
+/src/main/resources/drivers/mac/chrome/chromedriver
+TempTest.java
+/src/main/resources/local.properties
+/src/test/java/testDataCreation/TempUtilTest.java
+/previous-surefire-reports/
+/.idea/
+/src/main/resources/testData/couponCodeLists/delete/couponDeleting.csv
+
+/extent-report/*

@@ -1,0 +1,40 @@
+{
+  "server": "hub-cloud.browserstack.com",
+  "user": "<bs-user-name>",
+  "key": "<bs-key>",
+  "capabilities": {
+    "browserstack.debug": true,
+    "browserstack.video": false,
+    "resolution": "1920x1080"
+  },
+  "environments": {
+    "chrome": {
+      "browser": "chrome"
+    },
+    "firefox": {
+      "browser": "firefox"
+    },
+    "safari": {
+      "browser": "Safari",
+      "browser_version": "12.0",
+      "browserstack.safari.enablePopups": "true",
+      "os": "OS X",
+      "os_version": "Mojave"
+    },
+    "ie": {
+      "browser": "IE",
+      "browser_version": "11.0",
+      "os": "Windows",
+      "os_version": "10",
+      "browserstack.ie.noFlash": "true",
+      "browserstack.ie.enablePopups": "true"
+    },
+    "edge": {
+      "browser": "Edge",
+      "browser_version": "18.0",
+      "os": "Windows",
+      "os_version": "10",
+      "browserstack.ie.enablePopups": "true"
+    }
+  }
+}

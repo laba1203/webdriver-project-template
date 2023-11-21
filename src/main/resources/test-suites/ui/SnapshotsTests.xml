@@ -1,0 +1,94 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Snapshots tests" parallel="tests" thread-count="4">
+
+    <listeners>
+        <listener class-name="util.execution.TestListener"/>
+    </listeners>
+
+    <test name="Integration screen">
+        <classes>
+            <class name="execution.regression.integration.IntegrationScreenForDifferentPlatformTypesTests">
+                <methods>
+                    <include name="magentoSite"/>
+                    <include name="demandwareSite"/>
+                    <include name="shopifySite"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Campaign Public Preview">
+        <classes>
+            <class name="execution.regression.space.referral.campaign.preview.screenshotsValidation.DefaultThemeForFloatingWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Campaign Preview tab">
+        <classes>
+            <class name="execution.regression.space.referral.campaign.preview.screenshotsValidation.CampaignPreviewsUiTest"/>
+        </classes>
+    </test>
+    <test name="CSP">
+        <classes>
+            <class name="execution.regression.csp.CspTests_Screenshots"/>
+        </classes>
+    </test>
+    <test name="A/B Tests">
+        <classes>
+            <class name="execution.regression.space.referral.abTests.ABTestsScreenshotTests"/>
+        </classes>
+    </test>
+    <test name="Static widget indicator">
+        <classes>
+            <class name="execution.regression.space.referral.campaign.staticWidget.StaticWidgetCampaignTest">
+                <methods>
+                    <include name="swIndicatorUI"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Verify Email capture default themes">
+        <classes>
+            <class name="execution.regression.space.conversion.defaultTheme.EmailCaptureDefaultThemeTests"/>
+        </classes>
+    </test>
+    <test name="Verify Email capture additional themes customizations">
+        <classes>
+            <class name="execution.regression.space.conversion.defaultTheme.EmailCaptureAdditionalThemeCustomizations"/>
+        </classes>
+    </test>
+    <test name="Loyalty default theme">
+        <classes>
+            <class name="execution.regression.space.loyalty.defaultTheme.LoyaltyDefaultThemeScreenshotTests"/>
+        </classes>
+    </test>
+    <test name="Tier progress bar on member details">
+        <classes>
+            <class name="execution.regression.space.loyalty.reports.members.TierProgressBarOnMemberDetailsTest"/>
+        </classes>
+    </test>
+    <test name="Create dashboard tiles screenshot test">
+        <classes>
+            <class name="execution.regression.dashboard.CreateDashboardTilesScreenshotTest"/>
+        </classes>
+    </test>
+    <test name="Loyalty campaign screenshots validations">
+        <classes>
+            <class name="execution.regression.space.loyalty.campaign.rules.LoyaltyCampaignScreenshotTests"/>
+        </classes>
+    </test>
+    <test name="Config A/B Test">
+        <classes>
+            <class name="execution.regression.space.referral.abTests.ConfigurationLocalesAbTests"/>
+        </classes>
+    </test>
+    <test name="Member history screenshot tests">
+        <classes>
+            <class name="execution.regression.space.loyalty.reports.members.MemberHistoryScreenshotTests"/>
+        </classes>
+    </test>
+    <test name="Referrals screenshots">
+        <classes>
+            <class name="execution.regression.space.referral.campaign.defaultTheme.ReferralsScreenshotTests"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Smoke Test" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="util.execution.TestListener"/>
+    </listeners>
+    <parameter name="browser" value="chrome"/>
+
+    <test name="CSP">
+        <classes>
+            <class name="SmokeTest"/>
+        </classes>
+    </test>
+
+</suite>
+
+

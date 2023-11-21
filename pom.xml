@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>webdriver-project-template</groupId>
+    <artifactId>webdriver-project-template</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>webdriver-project-template</name>
+    <url>https://maven.apache.org</url>
+
+    <profiles>
+        <profile>
+            <id>common</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <execution.threads>12</execution.threads>
+            </properties>
+        </profile>
+        <profile>
+            <id>STAGE_2</id>
+            <activation>
+                <property>
+                    <name>env.NAME</name>
+                    <value>STAGE_2</value>
+                </property>
+            </activation>
+            <properties>
+                <execution.threads>8</execution.threads>
+            </properties>
+        </profile>
+
+    </profiles>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <execution.suite.name>AfterDeployTestSuite.xml</execution.suite.name>
+        <execution.suite.fullPath>.\src\main\resources\test-suites\${execution.suite.name}</execution.suite.fullPath>
+        <aspectj.version>1.9.19</aspectj.version>
+        <aspectj.argLine>
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+        </aspectj.argLine>
+        <test.custom.DOMAIN>NONE</test.custom.DOMAIN>
+        <browser.stack>false</browser.stack>
+
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <!-- <release>11</release> -->
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <inherited>true</inherited>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <argLine>
+                        ${aspectj.argLine} --add-opens=java.base/java.io=ALL-UNNAMED --add-opens
+                        java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED
+                        -XX:MaxMetaspaceSize=512m -Xmx1024m
+                    </argLine>
+                    <systemPropertyVariables>
+                        <test.threads>${execution.threads}</test.threads>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <test.environment>${env.NAME}</test.environment>
+                        <test.env.domain>${test.custom.DOMAIN}</test.env.domain>
+                        <test.suite>${execution.suite.name}</test.suite>
+                        <test.fullSuitePath>${execution.suite.fullPath}</test.fullSuitePath>
+
+                    </systemPropertyVariables>
+                    <forkCount>2C</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <perCoreThreadCount>false</perCoreThreadCount>
+                    <parallel>tests</parallel>
+                    <threadCount>${execution.threads}</threadCount>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${execution.suite.fullPath}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>pre-clean</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/previous-surefire-reports</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/target/surefire-reports/</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.10.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.assertthat/selenium-shutterbug -->
+        <dependency>
+            <groupId>com.assertthat</groupId>
+            <artifactId>selenium-shutterbug</artifactId>
+            <version>1.6</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

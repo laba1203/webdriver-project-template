@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Ui Kit Test" parallel="methods" thread-count="6" data-provider-thread-count="1">
+
+    <listeners>
+        <listener class-name="util.execution.TestListener"/>
+    </listeners>
+
+    <test name="All UI Kit tests">
+        <classes>
+            <class name="execution.ui.uiKit.defaultValues.UiKitTest"/>
+            <class name="execution.ui.uiKit.interactedFields.badges.CampaignBadgeElements"/>
+            <class name="execution.ui.uiKit.interactedFields.badges.StaffBadgesElements"/>
+            <class name="execution.ui.uiKit.interactedFields.button.ButtonElements"/>
+            <class name="execution.ui.uiKit.interactedFields.colorPicker.ColorPickerElement"/>
+            <class name="execution.ui.uiKit.interactedFields.spoiler.SpoilerElements"/>
+            <class name="execution.ui.uiKit.interactedFields.input.InputCheckboxElements"/>
+            <class name="execution.ui.uiKit.interactedFields.input.InputNumberElements"/>
+            <class name="execution.ui.uiKit.interactedFields.input.InputRadioElements"/>
+            <class name="execution.ui.uiKit.interactedFields.input.InputRangeElement"/>
+            <class name="execution.ui.uiKit.interactedFields.input.InputTextareaElement"/>
+            <class name="execution.ui.uiKit.interactedFields.input.InputTextElements"/>
+            <!--<class name="execution.ui.uiKit.interactedFields.input.InputSelectElements"/>-->
+            <class name="execution.ui.uiKit.interactedFields.pagination.PaginationElements"/>
+            <class name="execution.ui.uiKit.interactedFields.typography.LinkElements"/>
+            <class name="execution.ui.uiKit.interactedFields.form.FormElement"/>
+            <class name="execution.ui.uiKit.interactedFields.navigation.Sidebar"/>
+            <class name="execution.ui.uiKit.interactedFields.copyable.Copyable"/>
+            <class name="execution.ui.uiKit.interactedFields.menu.MenuDropdown"/>
+        </classes>
+    </test>
+
+
+</suite>
+

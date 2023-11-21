@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Ui Kit Test" parallel="methods" data-provider-thread-count="6">
+
+    <listeners>
+        <listener class-name="util.execution.TestListener"/>
+    </listeners>
+
+    <test name="Create new Read User">
+        <classes>
+            <class name="execution.ui.uiKit.defaultValues.UiKitTest"/>
+        </classes>
+    </test>
+
+
+</suite>
+
